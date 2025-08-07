@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Widget</title>
+    <title>SOMLUTION DATE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,36 +16,37 @@
         .widget-container {
             font-family: 'Pretendard', sans-serif;
             letter-spacing: -0.5px;
-            border: 3px solid #374151;
+            border: 3px solid #6b7280;
+            background: transparent;
         }
         .text-input {
             font-family: 'Pretendard', sans-serif;
             letter-spacing: -0.5px;
         }
         .border-b-3 {
-            border-bottom: 3px solid #374151;
+            border-bottom: 3px solid #6b7280;
         }
         .border-r-3 {
-            border-right: 3px solid #374151;
+            border-right: 3px solid #6b7280;
         }
     </style>
 </head>
 <body>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-        <div class="w-80">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="w-64">
             <!-- 위젯 컨테이너 -->
-            <div class="bg-white widget-container">
+            <div class="widget-container">
                 <!-- 상단 정보 테이블 -->
                 <div class="border-b-3">
                     <div class="flex border-b-3">
-                        <div class="w-20 p-3 border-r-3 bg-gray-50 font-medium text-sm">
+                        <div class="w-16 p-2 border-r-3 bg-transparent font-medium text-sm">
                             Date
                         </div>
-                        <div class="flex-1 p-3 font-medium text-sm" id="currentDate">
+                        <div class="flex-1 p-2 font-medium text-sm" id="currentDate">
                         </div>
                     </div>
                     <div class="flex">
-                        <div class="flex-1 p-3">
+                        <div class="flex-1 p-2">
                             <input
                                 type="text"
                                 id="bottomText"
@@ -58,7 +59,7 @@
                 </div>
 
                 <!-- 이미지 영역 -->
-                <div class="relative aspect-square bg-gray-50 flex items-center justify-center p-4">
+                <div class="relative aspect-square bg-transparent flex items-center justify-center p-3">
                     <img
                         id="widgetImage"
                         src="./이미지.png"
