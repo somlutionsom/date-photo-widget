@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            letter-spacing: -0.5px;
+        }
+        .widget-container {
+            font-family: 'Pretendard', sans-serif;
+            letter-spacing: -0.5px;
+            border: 3px solid #374151;
+        }
+        .text-input {
+            font-family: 'Pretendard', sans-serif;
+            letter-spacing: -0.5px;
+        }
+        .border-b-3 {
+            border-bottom: 3px solid #374151;
+        }
+        .border-r-3 {
+            border-right: 3px solid #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+        <div class="w-80">
+            <!-- 위젯 컨테이너 -->
+            <div class="bg-white widget-container">
+                <!-- 상단 정보 테이블 -->
+                <div class="border-b-3">
+                    <div class="flex border-b-3">
+                        <div class="w-20 p-3 border-r-3 bg-gray-50 font-medium text-sm">
+                            Date
+                        </div>
+                        <div class="flex-1 p-3 font-medium text-sm" id="currentDate">
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="flex-1 p-3">
+                            <input
+                                type="text"
+                                id="bottomText"
+                                value=""
+                                placeholder="문구를 입력하세요..."
+                                class="w-full text-sm border-none outline-none bg-transparent text-input"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 이미지 영역 -->
+                <div class="relative aspect-square bg-gray-50 flex items-center justify-center p-4">
+                    <img
+                        id="widgetImage"
+                        src="./이미지.png"
+                        alt="업로드된 이미지"
+                        class="w-full h-full object-cover"
+                        onerror="this.style.display='none'"
+                    />
+                    
+                    <!-- 이미지 업로드 버튼 -->
+                    <input
+                        type="file"
+                        id="imageUpload"
+                        accept="image/*"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL 파라미터에서 문구 가져오기
+        function getTextFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const textParam = urlParams.get('text') || urlParams.get('문구') || urlParams.get('message');
+            return textParam ? decodeURIComponent(textParam) : '';
+        }
+
+        // URL 파라미터에서 이미지 URL 가져오기
+        function getImageFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const imageParam = urlParams.get('image') || urlParams.get('img') || urlParams.get('이미지');
+            return imageParam ? decodeURIComponent(imageParam) : './이미지.png';
+        }
+
+        // 날짜 업데이트 함수
+        function updateDate() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            document.getElementById('currentDate').textContent = `${year}.${month}.${day}`;
+        }
+
+        // 초기 설정
+        function initializeWidget() {
+            // 날짜 설정
+            updateDate();
+            
+            // URL에서 문구 가져와서 설정
+            const textFromURL = getTextFromURL();
+            if (textFromURL) {
+                document.getElementById('bottomText').value = textFromURL;
+            }
+
+            // URL에서 이미지 가져와서 설정
+            const imageFromURL = getImageFromURL();
+            if (imageFromURL) {
+                document.getElementById('widgetImage').src = imageFromURL;
+                document.getElementById('widgetImage').style.display = 'block';
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        initializeWidget();
+
+        // 이미지 업로드 처리
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('widgetImage').src = e.target.result;
+                    document.getElementById('widgetImage').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 텍스트 입력 처리
+        document.getElementById('bottomText').addEventListener('input', function(e) {
+            // 입력값이 자동으로 업데이트됩니다
+        });
+    </script>
+</body>
+</html>
